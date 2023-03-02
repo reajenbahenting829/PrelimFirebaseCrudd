@@ -53,7 +53,7 @@ export const deleteProduct = id => {
 
 export const useLoadCustomers = () => {
   const customers = ref([])
-  const close = customersCollection.onSnapshot(snapshot => {
+  const close = customersCollection.orderBy('cust_no', 'asc').onSnapshot(snapshot => {
     customers.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   })
   onUnmounted(close)
@@ -62,7 +62,7 @@ export const useLoadCustomers = () => {
 
 export const useLoadProducts = () => {
   const products = ref([])
-  const close = productsCollection.onSnapshot(snapshot => {
+  const close = productsCollection.orderBy('prod_no', 'asc').onSnapshot(snapshot => {
     products.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   })
   onUnmounted(close)

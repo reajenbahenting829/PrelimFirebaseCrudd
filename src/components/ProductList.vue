@@ -7,6 +7,7 @@
     <table class="table table-hover border table-striped m-0">
       <thead class="bg-light">
         <tr>
+          <th scope="col">Product No.</th>
           <th scope="col">Barcode</th>
           <th scope="col">Product Name</th>
           <th scope="col">Supplier</th>
@@ -18,7 +19,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="{ id, barcode, productName, supplier, category, price, quantity, units } in products" :key="id">
+        <tr v-for="{ id, prod_no, barcode, productName, supplier, category, price, quantity, units } in products" :key="id">
+          <td>{{ prod_no }}</td>
           <td>{{ barcode }}</td>
           <td>{{ productName }}</td>
           <td>{{ supplier }}</td>

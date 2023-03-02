@@ -6,6 +6,10 @@
     <div class="card-body">
       <form @submit.prevent="onSubmit">
         <div class="form-group mt-2">
+          <label>Product Number</label>
+          <input v-model="form.prod_no" class="form-control" placeholder="Product Number" required />
+        </div>
+        <div class="form-group mt-2">
           <label>Barcode</label>
           <input v-model="form.barcode" class="form-control" placeholder="Barcode" required />
         </div>
@@ -45,7 +49,19 @@
 
         <div class="form-group mt-2">
           <label>Units</label>
-          <input v-model="form.units" class="form-control" placeholder="Units" required />
+          <select name="units" id="units" class="form-select">
+            <option>Pieces</option>
+            <option>Kilograms</option>
+            <option>Grams</option>accusantium reprehenderit
+            <option>Bottles</option>
+            <option>Packs</option>
+            <option>Litres</option>
+            <option>Boxes</option>
+            <option>Bundles</option>
+            <option>Inches</option>
+            <option>Meters</option>
+            <option>Dozens</option>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-primary form-control mt-3">
@@ -65,11 +81,12 @@ import { reactive } from 'vue'
 export default {
   setup() {
     const router = useRouter()
-    const form = reactive({ barcode: '', productName: '', supplier: '', category: '', price: '', quantity: '', units: '' })
+    const form = reactive({ prod_no: '', barcode: '', productName: '', supplier: '', category: '', price: '', quantity: '', units: '' })
 
     const onSubmit = async () => {
       await createProduct({ ...form })
       router.push('/products')
+      form.prod_no = ''
       form.barcode = ''
       form.productName = ''
       form.supplier = ''

@@ -6,6 +6,10 @@
     <div class="card-body">
       <form @submit.prevent="update">
         <div class="form-group mt-2">
+          <label>Customer Number</label>
+          <input v-model="form.cust_no" class="form-control" placeholder="Customer Number" required />
+        </div>
+        <div class="form-group mt-2">
           <label>Full Name</label>
           <input v-model="form.full_name" class="form-control" placeholder="Full Name" required />
         </div>
@@ -37,7 +41,7 @@
         </div>
         <div class="form-group mt-2">
           <label>Credit Limit</label>
-          <input v-model="form.credit_limit" class="form-control" placeholder="Credit Limit" required />
+          <input type="number" v-model="form.credit_limit" class="form-control" placeholder="Credit Limit" required />
         </div>
         <button type="submit" class="btn btn-primary form-control mt-3">
           <i class="fa-duotone fa-pen-to-square"></i> Update Customer
@@ -59,10 +63,11 @@
       const route = useRoute()
       const customerId = computed(() => route.params.id)
   
-      const form = reactive({ full_name: '', address: '', email: '', mobileNumber: '', status: '', credit_limit: '' })
+      const form = reactive({ cust_no: '', full_name: '', address: '', email: '', mobileNumber: '', status: '', credit_limit: '' })
       onMounted(async () => {
         const customer = await getCustomer(customerId.value)
         console.log(customer, customerId.value)
+        form.cust_no = customer.cust_no
         form.full_name = customer.full_name
         form.address = customer.address
         form.email = customer.email
@@ -74,6 +79,7 @@
       const update = async () => {
         await updateCustomer(customerId.value, { ...form })
         router.push('/customers')
+        form.cust_no = ''
         form.full_name = ''
         form.address = ''
         form.email = ''

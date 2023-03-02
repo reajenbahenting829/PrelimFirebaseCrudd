@@ -7,6 +7,7 @@
     <table class="table table-hover border table-striped m-0">
       <thead class="bg-light">
         <tr>
+          <th scope="col">Customer No.</th>
           <th scope="col">Full Name</th>
           <th scope="col">Address</th>
           <th scope="col">Email</th>
@@ -17,7 +18,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="{ id, full_name, address, email, mobileNumber, status, credit_limit} in customers" :key="id">
+        <tr v-for="{ id, cust_no, full_name, address, email, mobileNumber, status, credit_limit} in customers" :key="id">
+          <td>{{ cust_no }}</td>
           <td>{{ full_name }}</td>
           <td>{{ address }}</td>
           <td>{{ email }}</td>

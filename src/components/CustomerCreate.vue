@@ -6,6 +6,10 @@
       <div class="card-body">
         <form @submit.prevent="onSubmit">
           <div class="form-group mt-2">
+            <label>Customer Number</label>
+            <input v-model="form.cust_no" class="form-control" placeholder="Customer Number" required />
+          </div>
+          <div class="form-group mt-2">
             <label>Full Name</label>
             <input v-model="form.full_name" class="form-control" placeholder="Full Name" required />
           </div>
@@ -37,7 +41,7 @@
           </div>
           <div class="form-group mt-2">
             <label>Credit Limit</label>
-            <input v-model="form.credit_limit" class="form-control" placeholder="Credit Limit" required />
+            <input type="number" v-model="form.credit_limit" class="form-control" placeholder="Credit Limit" required />
           </div>
           <button type="submit" class="btn btn-primary form-control mt-3">
             Add Customer
@@ -57,17 +61,18 @@
     setup() {
       
       const router = useRouter()
-      const form = reactive({ full_name: '',address: '', email: '', mobileNumber: '', status: '', creadit_limit: '' })
+      const form = reactive({ cust_no: '', full_name: '',address: '', email: '', mobileNumber: '', status: '', credit_limit: '' })
   
       const onSubmit = async () => {
         await createCustomer({ ...form })
         router.push('/customers')
+        form.cust_no = ''
         form.full_name = ''
         form.address = ''
         form.email = ''
         form.mobileNumber = ''
         form.status = ''
-        form.creadit_limit = ''
+        form.credit_limit = ''
       }
   
       return {
