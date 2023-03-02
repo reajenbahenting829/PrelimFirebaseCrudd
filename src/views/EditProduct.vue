@@ -1,40 +1,44 @@
 <template>
-  <div class="card mt-4 w-50 offset-3">
+  <div class="card mt-4 w-50 ">
     <div class="card-header">
-      <h3 class="text-center">Edit Product</h3>
+      <h3 class="text-center">Edit Mens Wear</h3>
     </div>
     <div class="card-body">
       <form @submit.prevent="update">
         <div class="form-group mt-2">
-          <label>Product Number</label>
-          <input v-model="form.prod_no" disabled style="cursor: not-allowed;" class="form-control text-muted" placeholder="Product Number" required />
+          <label>Mens Top Collection</label>
+          <select v-model="form.top" class="form-control">
+            <option disabled selected value="">Select Top</option>
+            <option value="1. Vest">1. Vest</option>
+            <option value="2. Jacket">2. Jacket</option>
+            <option value="3. T-shirt">3. T-shirt</option>
+            <option value="4. Hoodies">4. Hoodies</option>
+            <option value="5. Polo Shirt">5. Polo Shirt</option>
+          </select>
         </div>
 
         <div class="form-group mt-2">
-          <label>Barcode</label>
-          <input v-model="form.barcode" disabled style="cursor: not-allowed;" class="form-control text-muted" placeholder="Barcode" required />
+          <label>Mens Bottom Collection</label>
+          <select v-model="form.bottom" class="form-control">
+            <option disabled selected value="">Select Bottom</option>
+            <option value="1. Shorts">1. Shorts</option>
+            <option value="2. Pants">2. Pants</option>
+            <option value="3. Jeans">3. Jeans</option>
+            <option value="4. Sweat Pants">4. Sweat Pants</option>
+            <option value="5. Mens Leggings">5. Mens Leggings</option>
+            <option value="6. Jogging Pants">6. Jogging Pants</option>
+          </select>
         </div>
 
         <div class="form-group mt-2">
-          <label>Product Name</label>
-          <input v-model="form.productName" class="form-control" placeholder="Product Name" required />
-        </div>
-
-        <div class="form-group mt-2">
-          <label>Supplier</label>
-          <input v-model="form.supplier" class="form-control" placeholder="Supplier" required />
-        </div>
-
-        <div class="form-group mt-2">
-          <label>Category</label>
-          <select v-model="form.category" class="form-control">
-            <option disabled selected value="">Select Category</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Foods">Foods</option>
-            <option value="Toys">Toys</option>
-            <option value="Appliances">Appliances</option>
-            <option value="Clothing">Clothing</option>
-            <option value="Gadgets">Gadgets</option>
+          <label>Sizes</label>
+          <select v-model="form.size" class="form-control">
+            <option disabled selected value="">Select Sizes</option>
+            <option value="Extra Small">Extra Small</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="Extra Large">Extra Large</option>
           </select>
         </div>
 
@@ -48,27 +52,10 @@
           <input type="number" v-model="form.quantity" class="form-control" placeholder="Quantity" required />
         </div>
 
-        <div class="form-group mt-2">
-          <label>Units</label>
-          <select name="units" id="units" class="form-select">
-            <option>Pieces</option>
-            <option>Kilograms</option>
-            <option>Grams</option>accusantium reprehenderit
-            <option>Bottles</option>
-            <option>Packs</option>
-            <option>Litres</option>
-            <option>Boxes</option>
-            <option>Bundles</option>
-            <option>Inches</option>
-            <option>Meters</option>
-            <option>Dozens</option>
-          </select>
-        </div>
-
         <button type="submit" class="btn btn-primary form-control mt-3">
-          <i class="fa-duotone fa-pen-to-square"></i> Update Product
+          Update Product
         </button>
-        <a href="/products" class="btn btn-secondary form-control mt-1"><i class="fa-duotone fa-left-long-to-line"></i> Back</a>
+        <a href="/products" class="btn btn-secondary form-control mt-1">Back</a>
       </form>
     </div>
   </div>
@@ -85,31 +72,25 @@ export default {
     const route = useRoute()
     const productId = computed(() => route.params.id)
 
-    const form = reactive({ prod_no: '', barcode: '', productName: '', supplier: '', category: '', price: '', quantity: '', units: '' })
+    const form = reactive({ top: '', bottom: '', size: '', price: '', quantity: ''})
     onMounted(async () => {
       const product = await getProduct(productId.value)
       console.log(product, productId.value)
-      form.prod_no = product.prod_no
-      form.barcode = product.barcode
-      form.productName = product.productName
-      form.supplier = product.supplier
-      form.category = product.category
+      form.top = product.top
+      form.bottom = product.bottom
+      form.size = product.size
       form.price = product.price
       form.quantity = product.quantity
-      form.units = product.units
     })
 
     const update = async () => {
       await updateProduct(productId.value, { ...form })
       router.push('/products')
-      form.prod_no = ''
-      form.barcode = ''
-      form.productName = ''
-      form.supplier = ''
-      form.category = ''
+      form.top = ''
+      form.bottom = ''
+      form.size = ''
       form.price = ''
       form.quantity = ''
-      form.units = ''
     }
 
     return { 
