@@ -1,45 +1,42 @@
 <template>
-  <div class="card mt-3 w-50 offset-2">
-    <div class="card-header bg-success">
-      <h3 class="text-center">Create Mens Wear</h3>
+  <div class="card mt-4 w-50 offset-3">
+    <div class="card-header">
+      <h3 class="text-center">Create Product</h3>
     </div>
     <div class="card-body">
       <form @submit.prevent="onSubmit">
         <div class="form-group mt-2">
-          <label>Mens Top</label>
-          <select v-model="form.top" class="form-control">
-            <option disabled selected value="">Select Top</option>
-            <option value="1. Mens Vest">1. Mens Vest</option>
-            <option value="2. Mens Jacket">2. Mens Jacket</option>
-            <option value="3. Mens T-shirt">3. Mens T-shirt</option>
-            <option value="4. Hoodies">4. Hoodies</option>
-            <option value="5. Polo Shirt">5. Polo Shirt</option>
-          </select>
+          <label>Product Number</label>
+          <input v-model="form.prod_no" class="form-control" placeholder="Product Number" required />
         </div>
         <div class="form-group mt-2">
-          <label>Mens Bottom</label>
-          <select v-model="form.bottom" class="form-control">
-            <option disabled selected value="">Select Bottom</option>
-            <option value="1. Shorts">1. Shorts</option>
-            <option value="2. Pants">2. Pants</option>
-            <option value="3. Jeans">3. Jeans</option>
-            <option value="4. Sweat Pants">4. Sweat Pants</option>
-            <option value="5. Mens Leggings">5. Mens Leggings</option>
-            <option value="6. Jogging Pants">6. Jogging Pants</option>
-          </select>
+          <label>Barcode</label>
+          <input v-model="form.barcode" class="form-control" placeholder="Barcode" required />
         </div>
 
         <div class="form-group mt-2">
-          <label>Size</label>
-          <select v-model="form.size" class="form-control">
-            <option disabled selected value="">Select Sizes</option>
-            <option value="Extra Small">Extra Small</option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-            <option value="Extra Large">Extra Large</option>
+          <label>Product Name</label>
+          <input v-model="form.productName" class="form-control" placeholder="Product Name" required />
+        </div>
+
+        <div class="form-group mt-2">
+          <label>Supplier</label>
+          <input v-model="form.supplier" class="form-control" placeholder="Supplier" required />
+        </div>
+
+        <div class="form-group mt-2">
+          <label>Category</label>
+          <select v-model="form.category" class="form-control">
+            <option disabled selected value="">Select Category</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Foods">Foods</option>
+            <option value="Toys">Toys</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Clothing">Clothing</option> 
+            <option value="Gadgets">Gadgets</option> 
           </select>
         </div>
+
         <div class="form-group mt-2">
           <label>Price</label>
           <input type="number" v-model="form.price" class="form-control" placeholder="Price" required />
@@ -50,8 +47,25 @@
           <input type="number" v-model="form.quantity" class="form-control" placeholder="Quantity" required />
         </div>
 
-        <button type="submit" class="btn btn-primary  form-control mt-3">
-          Add Collection
+        <div class="form-group mt-2">
+          <label>Units</label>
+          <select name="units" id="units" class="form-select">
+            <option>Pieces</option>
+            <option>Kilograms</option>
+            <option>Grams</option>accusantium reprehenderit
+            <option>Bottles</option>
+            <option>Packs</option>
+            <option>Litres</option>
+            <option>Boxes</option>
+            <option>Bundles</option>
+            <option>Inches</option>
+            <option>Meters</option>
+            <option>Dozens</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-control mt-3">
+          Add Product
         </button>
         <a href="/products" class="btn btn-secondary form-control mt-1">Back</a>
       </form>
@@ -67,16 +81,19 @@ import { reactive } from 'vue'
 export default {
   setup() {
     const router = useRouter()
-    const form = reactive({ top: '', bottom: '', size: '', price: '', quantity: '' })
+    const form = reactive({ prod_no: '', barcode: '', productName: '', supplier: '', category: '', price: '', quantity: '', units: '' })
 
     const onSubmit = async () => {
       await createProduct({ ...form })
       router.push('/products')
-      form.top = ''
-      form.bottom = ''
-      form.size = ''
+      form.prod_no = ''
+      form.barcode = ''
+      form.productName = ''
+      form.supplier = ''
+      form.category = ''
       form.price = ''
       form.quantity = ''
+      form.units = ''
     }
 
     return {

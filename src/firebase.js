@@ -2,12 +2,13 @@ import firebase from 'firebase'
 import { ref, onUnmounted } from 'vue'
 
 const config = {
-  apiKey: "AIzaSyBHOCB_Ym5cJ7hFtYiiZo2ncxg3NhcYkGk",
-  authDomain: "menswear-8b83a.firebaseapp.com",
-  projectId: "menswear-8b83a",
-  storageBucket: "menswear-8b83a.appspot.com",
-  messagingSenderId: "1078261762911",
-  appId: "1:1078261762911:web:12d27ca4959224bf7fc4ea"
+  apiKey: "AIzaSyAjElUr8V0MD4j8oN92sRMH8zLjHWwGO2Q",
+  authDomain: "store-app-43a62.firebaseapp.com",
+  projectId: "store-app-43a62",
+  storageBucket: "store-app-43a62.appspot.com",
+  messagingSenderId: "118028438965",
+  appId: "1:118028438965:web:0ee8ba8ab51ba8cecaddfc",
+  measurementId: "G-P28L9WMRJJ"
 }
 
 const firebaseApp = firebase.initializeApp(config)
@@ -52,7 +53,7 @@ export const deleteProduct = id => {
 
 export const useLoadCustomers = () => {
   const customers = ref([])
-  const close = customersCollection.orderBy('full_name', 'asc').onSnapshot(snapshot => {
+  const close = customersCollection.orderBy('cust_no', 'asc').onSnapshot(snapshot => {
     customers.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   })
   onUnmounted(close)
@@ -61,7 +62,7 @@ export const useLoadCustomers = () => {
 
 export const useLoadProducts = () => {
   const products = ref([])
-  const close = productsCollection.orderBy('top', 'asc').onSnapshot(snapshot => {
+  const close = productsCollection.orderBy('prod_no', 'asc').onSnapshot(snapshot => {
     products.value = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
   })
   onUnmounted(close)
